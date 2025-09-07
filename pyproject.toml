@@ -1,0 +1,17 @@
+[project]
+name = "codeleap-backend-challenge"
+version = "0.1.0"
+description = "CodeLeap Backend Challenge"
+authors = ["Danilo Almeida <cs.daniloalmeida@gmail.com>"]
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+	"Django>=5.0,<6.0",
+	"djangorestframework>=3.15,<4.0"
+]
+
+[project.scripts]
+manage = "manage:main"
+
+[tool.uv]
+dev-dependencies = [] 
