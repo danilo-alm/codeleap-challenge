@@ -2,6 +2,8 @@
 
 A minimal CRUD API for posts.
 
+Note: The base of the challenge was implemented before sending the form, however the Reactions feature was implemented after it.
+
 ## Tech
 - Django 5, Django REST Framework
 - uv for dependency management
@@ -20,42 +22,8 @@ uv run python manage.py runserver 0.0.0.0:8000  # or whatever port you like
 ```
 
 ## Endpoints
-Base URL: `http://localhost:8000/`
 
-- Create post: `POST /`
-  - Body: `{ "username": "string", "title": "string", "content": "string" }`
-  - Response: `201` with created object
-
-- List posts: `GET /`
-  - Response: array of posts
-  - Fields: `{ "id": number, "username": string, "created_datetime": datetime, "title": string, "content": string }`
-
-- Update post: `PATCH /{id}/`
-  - Body: `{ "title": "string", "content": "string" }`
-  - Cannot change `id`, `username`, or `created_datetime` as the challenge states
-  - Response: only `{ "title": string, "content": string }`
-
-- Delete post: `DELETE /{id}/`
-  - Response: `204` No Content
-
-## Examples
-```bash
-# Create
-curl -s -X POST http://localhost:8000/ \
-  -H "Content-Type: application/json" \
-  -d '{"username":"john","title":"Hello","content":"First post"}'
-
-# List
-curl -s http://localhost:8000/
-
-# Update (only title and content are returned)
-curl -s -X PATCH http://localhost:8000/1/ \
-  -H "Content-Type: application/json" \
-  -d '{"title":"New title","content":"Updated"}'
-
-# Delete
-curl -s -X DELETE http://localhost:8000/1/
-```
+You can test the API manually by importing [this file](./postman_collection.json) into postman, insomnia or your preferred software.
 
 ## Environment variables
 The app supports a few simple environment variables (all optional FOR DEVELOPMENT):

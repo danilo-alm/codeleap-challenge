@@ -1,8 +1,8 @@
 from rest_framework import generics, mixins, status
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
-from .models import Post
-from .serializers import PostSerializer, PostCreateSerializer, PostUpdateSerializer
+from .models import Post, Reaction
+from .serializers import PostSerializer, PostCreateSerializer, PostUpdateSerializer, ReactionCreateSerializer, ReactionUpdateSerializer
 
 
 class PostListCreateView(generics.ListCreateAPIView):
@@ -43,3 +43,22 @@ class PostDetailView(mixins.UpdateModelMixin,
 	def delete(self, request, *args, **kwargs):
 		self.destroy(request, *args, **kwargs)
 		return Response(status=status.HTTP_204_NO_CONTENT) 
+
+
+class ReactView(mixins.CreateModelMixin,
+                mixins.UpdateModelMixin,
+                mixins.DestroyModelMixin,
+                generics.GenericAPIView):
+    queryset = Reaction.objects.all()
+    serializer_class = ReactionCreateSerializer
+    permission_classes = [AllowAny]
+    
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+    
+    def patch(self, request, *args, **kwargs):
+        self.serializer_class = ReactionUpdateSerializer
+        return self.partial_update(request, *args, **kwargs)
+    
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
